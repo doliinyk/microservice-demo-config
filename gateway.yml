@@ -1,0 +1,17 @@
+spring.cloud:
+  gateway:
+    globalcors:
+      cors-configurations:
+        '[/**]':
+          allowedOrigins: "*"
+          allowedMethods: "*"
+    default-filters:
+      - StripPrefix=2
+      - name: PrefixPath
+        args:
+          prefix: /api
+    routes:
+      - id: users
+        uri: lb://user:8081
+        predicates:
+          - Path=/api/users/**
